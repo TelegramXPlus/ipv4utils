@@ -1,13 +1,13 @@
 import ipv4utils/[types, utils, parsing]
 
-export utils.binaryAddress, utils.parseSubnet
+export utils.toBinAddress, utils.parseSubnet, utils.toDecAddress, utils.toDecSubnet, utils.toBinSubnet
 export parsing
 export types.IPv4Address, types.InvalidAddress, types.address, types.subnet, types.network, types.broadcast
 
 
 proc newIPv4Address*(host: string, subnet: string): IPv4Address =
   ## Create a new instance of IPAddress
-  if not (matchAddress(host) and matchSubnet(subnet)):
+  if not (matchDecAddress(host) and matchDecSubnet(subnet)):
     raise newException(InvalidAddress, "The IP Address/Subnetmask you provided does not match the regex")
 
   let network = getNetworkAddress(host, subnet)
@@ -33,5 +33,8 @@ when isMainModule:
 
   echo "\n--------\n"
 
-  echo "Binary host address: ", binaryAddress("192.168.1.1")
-  echo "Binary subnet mask: ", parseSubnet(32)
+  echo "Decimal host to binary: ", "192.168.1.1".toBinAddress
+  echo "Binary host to decimal: ", "11111111.11111111.11111111.11111101".toDecAddress
+  echo "Decimal subnet to binary: ", "255.255.255.0".toBinSubnet
+  echo "Binary subnet to decimal: ", "11111111.11111111.11111111.11111111".toDecSubnet
+  echo "CIDR to Decimal subnet mask: ", parseSubnet(32)
