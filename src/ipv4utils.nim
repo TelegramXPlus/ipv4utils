@@ -33,5 +33,5 @@ when isMainModule:
 
   echo "\n--------\n"
 
-  echo "Binary host: ", binaryAddress("192.168.1.1")
-  echo "Binary subnet: ", parseSubnet(32)
+  echo "Binary host address: ", binaryAddress("192.168.1.1")
+  echo "Binary subnet mask: ", parseSubnet(32)
