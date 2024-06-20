@@ -25,6 +25,7 @@ proc matchSubnet*(subnet: string): bool =
     return false
 
   var checkLater = false
+  
   for subnetPart in subnet.split("."):
     if subnetPart notin @["0", "128", "192", "224", "240", "248", "252", "254", "255"]:
       return false
