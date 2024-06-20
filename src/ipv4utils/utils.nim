@@ -16,6 +16,7 @@ proc matchAddress*(address: string): bool =
   for part in splittedAddress:
     if part < 0 or part > 255:
       return false
+
   return true
 
 
