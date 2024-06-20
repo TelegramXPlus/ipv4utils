@@ -3,8 +3,8 @@ import std/[strutils, sequtils, bitops]
 import ./types
 
 
-proc matchAddress*(address: string): bool =
-  ## Check if the address is valid
+proc matchDecAddress*(address: string): bool =
+  ## Check if the decimal address is valid
   var splittedAddress: seq[int]
   try:
     splittedAddress = address.split(".").map(parseInt)
@@ -20,9 +20,9 @@ proc matchAddress*(address: string): bool =
   return true
 
 
-proc matchSubnet*(subnet: string): bool =
-  ## Check if the subnetmask is valid
-  if not matchAddress(subnet):
+proc matchDecSubnet*(subnet: string): bool =
+  ## Check if the decimal subnet mask is valid
+  if not matchDecAddress(subnet):
     return false
 
   var checkLater = false
@@ -34,6 +34,37 @@ proc matchSubnet*(subnet: string): bool =
       return false
     if subnetPart != "255":
       checkLater = true
+
+  return true
+
+
+proc matchBinAddress*(address: string): bool =
+  ## Check if the binary address is valid
+  let splittedAddress = address.split(".")
+  if splittedAddress.len != 4:
+    return false
+
+  for part in splittedAddress:
+    if part.len != 8:
+      return false
+    for bit in part:
+      if bit notin @['1', '0']:
+        return false
+
+  return true
+
+
+proc matchBinSubnet*(subnet: string): bool =
+  ## Check if the binary subnet mask is valid
+  if not matchBinAddress(subnet):
+    return false
+  
+  var checkLater = false
+  for bit in subnet.replace(".",  ""):
+    if bit == '0':
+      checkLater = true
+    if checkLater and bit == '1':
+      return false
 
   return true
 
@@ -81,11 +112,37 @@ proc parseSubnet*(subnetBits: int): string =
   result = result[0..^2]
 
 
-proc binaryAddress*(address: string): string =
+proc toBinAddress*(address: string): string =
   ## Convert a decimal address to a binary address
-  if not matchAddress(address):
+  if not matchDecAddress(address):
     raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
 
-  for subnetPart in address.split(".").map(parseInt):
-    result &= toBin(subnetPart, 8) & "."
+  for part in address.split(".").map(parseInt):
+    result &= toBin(part, 8) & "."
   result = result[0..^2]
+
+
+proc toDecAddress*(address: string): string =
+  ## Convert a binary address to a decimal address
+  if not matchBinAddress(address):
+    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+
+  for part in address.split("."):
+    result &= $fromBin[int](part) & "."
+  result = result[0..^2]
+
+
+proc toBinSubnet*(subnet: string): string =
+  ## Convert a decimal subnet mask to a binary subnet mask
+  if not matchDecSubnet(subnet):
+    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+
+  return subnet.toBinAddress
+
+
+proc toDecSubnet*(subnet: string): string =
+  ## Convert a binary subnet mask to a decimal subnetmask
+  if not matchBinSubnet(subnet):
+    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+
+  return subnet.toDecAddress
