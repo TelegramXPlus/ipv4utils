@@ -17,8 +17,9 @@ proc newIPv4Address*(host: string, subnet: string): IPv4Address =
 
 
 when isMainModule:
-  let ip1 = newIPv4Address("192.168.0.1", "255.255.255.0")
-  let ip2 = newIPv4Address("192.168.0.2", "255.255.255.0")
+  let
+    ip1 = newIPv4Address("192.168.0.1", "255.255.255.0")
+    ip2 = newIPv4Address("192.168.0.2", "255.255.255.0")
 
   echo "Host address: ", ip1.address
   echo "Subnet mask: ", ip1.subnet
