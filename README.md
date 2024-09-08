@@ -8,6 +8,12 @@ Simple library for ipv4 parsing
 nimble install ipv4utils
 ```
 
+or
+
+```
+nimle install https://github.com/TelegramXPlus/ipv4utils
+```
+
 ## Usage
 
 All the things covered here can be seen in `tests/test.nim`
