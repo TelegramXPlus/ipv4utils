@@ -6,9 +6,9 @@ export types.IPv4Address, types.InvalidAddress, types.address, types.subnet, typ
 
 
 proc newIPv4Address*(host: string, subnet: string): IPv4Address =
-  ## Create a new instance of IPAddress
+  ## Create a new instance of IPv4Address
   if not (matchDecAddress(host) and matchDecSubnet(subnet)):
-    raise newException(InvalidAddress, "The IP Address/Subnetmask you provided does not match the regex")
+    raise newException(InvalidAddress, "The IP Address/Subnet mask you provided is invalid")
 
   let network = getNetworkAddress(host, subnet)
   let broadcast = getBroadcastAddress(network, subnet)

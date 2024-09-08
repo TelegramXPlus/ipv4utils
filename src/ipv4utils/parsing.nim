@@ -11,7 +11,8 @@ proc canCommunicate*(self: IPv4Address, other: IPv4Address): bool =
 
 proc wildcardMask*(self: IPv4Address): string =
   ## Get the wildcard of the subnet mask
-  ## The wildcard mask is the not version of the subnet mask
+  ## 
+  ## The wildcard mask is the complement of the subnet mask
   for subnetPart in self.subnet.split(".").map(parseInt):
     result &= $notBits(subnetPart) & "."
   result = result[0..^2]
@@ -30,6 +31,7 @@ proc cidrMaskStr*(self: IPv4Address): string =
 
 proc firstHostAddress*(self: IPv4Address): string =
   ## Calculate the first host address from the network address
+  ## 
   ## network + 1
   var splittedNetwork = self.network.split(".").map(parseInt)
   splittedNetwork[3] += 1
@@ -38,6 +40,7 @@ proc firstHostAddress*(self: IPv4Address): string =
 
 proc lastHostAddress*(self: IPv4Address): string =
   ## Calculate the last host address from the broadcast address
+  ## 
   ## broadcast - 1
   var splittedBroadcast = self.broadcast.split(".").map(parseInt)
   splittedBroadcast[3] -= 1

@@ -115,7 +115,7 @@ proc parseSubnet*(subnetBits: int): string =
 proc toBinAddress*(address: string): string =
   ## Convert a decimal address to a binary address
   if not matchDecAddress(address):
-    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+    raise newException(InvalidAddress, "The IP Address you provided is invalid")
 
   for part in address.split(".").map(parseInt):
     result &= toBin(part, 8) & "."
@@ -125,7 +125,7 @@ proc toBinAddress*(address: string): string =
 proc toDecAddress*(address: string): string =
   ## Convert a binary address to a decimal address
   if not matchBinAddress(address):
-    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+    raise newException(InvalidAddress, "The IP Address you provided is invalid")
 
   for part in address.split("."):
     result &= $fromBin[int](part) & "."
@@ -135,14 +135,14 @@ proc toDecAddress*(address: string): string =
 proc toBinSubnet*(subnet: string): string =
   ## Convert a decimal subnet mask to a binary subnet mask
   if not matchDecSubnet(subnet):
-    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+    raise newException(InvalidAddress, "The Subnet mask you provided is invalid")
 
   return subnet.toBinAddress
 
 
 proc toDecSubnet*(subnet: string): string =
-  ## Convert a binary subnet mask to a decimal subnetmask
+  ## Convert a binary subnet mask to a decimal subnet mask
   if not matchBinSubnet(subnet):
-    raise newException(InvalidAddress, "The IP Address you provided does not match the regex")
+    raise newException(InvalidAddress, "The Subnet mask you provided is invalid")
 
   return subnet.toDecAddress
