@@ -1,5 +1,7 @@
 # ipv4utils
 
+[![Build And Test](https://github.com/TelegramXPlus/ipv4utils/actions/workflows/test.yml/badge.svg)](https://github.com/TelegramXPlus/ipv4utils/actions/workflows/test.yml)
+
 Simple library for ipv4 parsing
 
 ## Installation
