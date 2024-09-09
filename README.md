@@ -34,7 +34,7 @@ ip.subnet    # get the subnet mask
 ip.network   # get the network address (192.168.0.0)
 ip.broadcast # get the broadcast address (192.168.0.255)
 
-ip.firstHostAddress # 12.168.0.1
+ip.firstHostAddress # 192.168.0.1
 ip.lastHostAddress  # 192.168.0.254
 
 ip.wildCardMask # complement of subnet mask
