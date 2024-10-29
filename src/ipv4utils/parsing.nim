@@ -4,7 +4,7 @@ import ./types
 import ./utils
 
 
-proc canCommunicate*(self: IPv4Address, other: IPv4Address): bool =
+proc ping*(self: IPv4Address, other: IPv4Address): bool =
   ## Check whether two addresses can communicate
   return self.network == other.network and self.broadcast == other.broadcast and self.subnet == other.subnet
 

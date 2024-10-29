@@ -43,7 +43,7 @@ ip.wildCardMask # complement of subnet mask
 ip.cidrMask     # CIDR value as an int
 ip.cidrMaskStr  # CIDR value with appending /
 
-ip.canCommunicate(otherIP) # check whether two adddresses are on the same network
+ip.ping(otherIP) # check whether two addresses are on the same network
 ```
 
 > And some other utilities

@@ -30,7 +30,7 @@ when isMainModule:
   echo "Wildcard mask: ", ip1.wildcardMask()
   echo "CIDR notation: ", ip1.cidrMask()
   echo "CIDR notation (str): ", ip1.cidrMaskStr()
-  echo "Can ip1 communicate with ip2: ", ip1.canCommunicate(ip2)
+  echo "Can ip1 communicate with ip2: ", ip1.ping(ip2)
 
   echo "\n--------\n"
 

@@ -41,8 +41,8 @@ suite "ipv4utils":
     check ip1.cidrMaskStr == "/24"
     check ip2.cidrMaskStr == "/24"
 
-  test "Commuication":
-    check ip1.canCommunicate(ip2) == true
+  test "Communication":
+    check ip1.ping(ip2) == true
 
   test "Host Convertion":
     check "192.168.1.1".toBinAddress == "11000000.10101000.00000001.00000001"
